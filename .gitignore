@@ -1,0 +1,7 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
+
+/target
+/moomap
+/moomap[0-9]*
+/*-stress.db
+/*-final.db

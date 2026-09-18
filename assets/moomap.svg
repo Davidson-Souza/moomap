@@ -1,0 +1,59 @@
+<!-- SPDX-License-Identifier: MIT OR Apache-2.0 -->
+<svg xmlns="http://www.w3.org/2000/svg" width="424" height="320" viewBox="0 0 424 320" role="img" aria-labelledby="title desc">
+  <title id="title">MooMap cow memory logo</title>
+  <desc id="desc">A cheerful cow emerging from a green memory module</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#111827"/>
+      <stop offset="1" stop-color="#243047"/>
+    </linearGradient>
+    <linearGradient id="ram" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#48bb78"/>
+      <stop offset="1" stop-color="#237a4b"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="424" height="320" rx="34" fill="url(#background)"/>
+
+  <!-- RAM module -->
+  <rect x="47" y="210" width="330" height="72" rx="12" fill="url(#ram)" stroke="#9ae6b4" stroke-width="5"/>
+  <g fill="#173f2b" stroke="#b7f7cc" stroke-width="3">
+    <rect x="72" y="228" width="49" height="35" rx="4"/>
+    <rect x="135" y="228" width="49" height="35" rx="4"/>
+    <rect x="198" y="228" width="49" height="35" rx="4"/>
+    <rect x="261" y="228" width="49" height="35" rx="4"/>
+    <rect x="324" y="228" width="28" height="35" rx="4"/>
+  </g>
+  <g fill="#f6c85f">
+    <rect x="69" y="282" width="13" height="19"/>
+    <rect x="92" y="282" width="13" height="19"/>
+    <rect x="115" y="282" width="13" height="19"/>
+    <rect x="138" y="282" width="13" height="19"/>
+    <rect x="161" y="282" width="13" height="19"/>
+    <rect x="249" y="282" width="13" height="19"/>
+    <rect x="272" y="282" width="13" height="19"/>
+    <rect x="295" y="282" width="13" height="19"/>
+    <rect x="318" y="282" width="13" height="19"/>
+    <rect x="341" y="282" width="13" height="19"/>
+  </g>
+
+  <!-- Cow ears and horns -->
+  <path d="M102 82 C67 55 55 98 92 119 Z" fill="#f5efe2" stroke="#20293a" stroke-width="6"/>
+  <path d="M300 82 C335 55 347 98 310 119 Z" fill="#f5efe2" stroke="#20293a" stroke-width="6"/>
+  <path d="M129 67 C112 34 142 22 151 61 Z" fill="#f6c85f" stroke="#20293a" stroke-width="6"/>
+  <path d="M273 67 C290 34 260 22 251 61 Z" fill="#f6c85f" stroke="#20293a" stroke-width="6"/>
+
+  <!-- Cow head -->
+  <path d="M109 92 C121 48 281 48 293 92 L283 190 C279 225 123 225 119 190 Z" fill="#f5efe2" stroke="#20293a" stroke-width="7"/>
+  <path d="M116 91 C143 60 177 66 179 104 C155 123 129 117 116 91 Z" fill="#20293a"/>
+  <path d="M242 72 C285 70 302 112 276 138 C247 136 228 105 242 72 Z" fill="#20293a"/>
+  <path d="M145 151 C163 129 242 129 260 151 L254 190 C246 215 159 215 149 190 Z" fill="#efb6b2" stroke="#20293a" stroke-width="6"/>
+  <ellipse cx="177" cy="173" rx="8" ry="11" fill="#753f46"/>
+  <ellipse cx="229" cy="173" rx="8" ry="11" fill="#753f46"/>
+  <circle cx="162" cy="115" r="12" fill="#fff" stroke="#20293a" stroke-width="5"/>
+  <circle cx="246" cy="115" r="12" fill="#fff" stroke="#20293a" stroke-width="5"/>
+  <circle cx="165" cy="118" r="5" fill="#20293a"/>
+  <circle cx="243" cy="118" r="5" fill="#20293a"/>
+  <path d="M187 190 Q203 202 220 189" fill="none" stroke="#753f46" stroke-width="5" stroke-linecap="round"/>
+
+</svg>
