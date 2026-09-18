@@ -99,8 +99,9 @@ The `stress` binary compares MooMap with a conventional `MAP_SHARED` mapping. By
 - reads 1 TiB from `/dev/random`;
 - chooses mildly biased random offsets;
 - XORs each selected range with the random input;
-- runs write-back every five seconds;
-- starts reclaiming above 80% physical-memory or commit usage and targets 40%;
+- runs best-effort write-back every five seconds;
+- forces reclaim of all dirty pages every 30 seconds, clearing the accumulated dirty set;
+- checks physical-memory and commit pressure every 250 milliseconds and performs earlier reclaim toward 40% when either exceeds 80%;
 - uses `MADV_WILLNEED` and `MADV_HUGEPAGE` for the standard mmap comparison.
 
 The file is fully preallocated before mapping. This converts insufficient storage into a normal startup error instead of a later `SIGBUS`. Do not put a 20 GiB run in a small tmpfs such as `/tmp`; use a disk-backed filesystem with enough free space.

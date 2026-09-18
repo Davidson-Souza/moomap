@@ -10,6 +10,9 @@ use std::time::{Duration, Instant};
 
 const GIB: u64 = 1024 * 1024 * 1024;
 const TIB: u64 = 1024 * GIB;
+const WRITE_BACK_INTERVAL: Duration = Duration::from_secs(5);
+const RECLAIM_INTERVAL: Duration = Duration::from_secs(30);
+const MEMORY_CHECK_INTERVAL: Duration = Duration::from_millis(250);
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum Mode {
@@ -350,6 +353,7 @@ fn run(config: Config) -> io::Result<()> {
     let max_offset = config.file_size - config.chunk_size as u64;
     let started = Instant::now();
     let mut last_write_back = Instant::now();
+    let mut last_forced_reclaim = Instant::now();
     let mut last_memory_check = Instant::now();
     let mut processed = 0u64;
 
@@ -370,17 +374,32 @@ fn run(config: Config) -> io::Result<()> {
         cache.xor(offset as usize, &data[..amount])?;
         processed += amount as u64;
 
-        if last_write_back.elapsed() >= Duration::from_secs(5) {
-            cache.write_back()?;
-            last_write_back = Instant::now();
-        }
-
-        if last_memory_check.elapsed() >= Duration::from_millis(250) {
+        let now = Instant::now();
+        let reclaimed = if now.duration_since(last_forced_reclaim) >= RECLAIM_INTERVAL {
+            cache.reclaim(len)?;
+            last_forced_reclaim = now;
+            last_memory_check = now;
+            true
+        } else if now.duration_since(last_memory_check) >= MEMORY_CHECK_INTERVAL {
             let bytes = memory_usage()?.reclaim_bytes(config.file_size);
+            last_memory_check = now;
             if bytes != 0 {
                 cache.reclaim(bytes)?;
+                true
+            } else {
+                false
             }
-            last_memory_check = Instant::now();
+        } else {
+            false
+        };
+
+        if reclaimed {
+            // Reclaim includes write-back, so do not immediately copy the same
+            // dirty pages again when the five-second schedules coincide.
+            last_write_back = now;
+        } else if now.duration_since(last_write_back) >= WRITE_BACK_INTERVAL {
+            cache.write_back()?;
+            last_write_back = now;
         }
 
         if processed % GIB < amount as u64 {
